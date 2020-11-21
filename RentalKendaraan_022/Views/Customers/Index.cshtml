@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RentalKendaraan_022.Models.Customer>
+﻿@model PaginatedList<RentalKendaraan_022.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,30 +12,34 @@
 
 @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
 {
-<p>
-    Ketersediaan: @Html.DropDownList("ktsd", "Pilih gender")
-    Cari Data : @Html.TextBox("searchString")
-    <input type="submit" value="Filter" />
-</p>
+    <p>
+        Ketersediaan: @Html.DropDownList("ktsd", "Pilih gender")
+        Cari Data : @Html.TextBox("searchString")
+        <input type="submit" value="Filter" />
+    </p>
 }
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NamaCustomer)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Nama
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nik)
+                NIK
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Alamat)
+                Alamat
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NoHp)
+                No HP
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdGenderNavigation)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Gender
+                </a>
             </th>
             <th></th>
         </tr>
@@ -57,7 +61,7 @@
                     @Html.DisplayFor(modelItem => item.NoHp)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdGenderNavigation.IdGender)
+                    @Html.DisplayFor(modelItem => item.IdGenderNavigation.NamaGender)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IdCustomer">Edit</a> |
@@ -68,3 +72,24 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex -1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex +1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

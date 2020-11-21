@@ -60,6 +60,9 @@ namespace RentalKendaraan_022.Controllers
                     menu = menu.OrderBy(s => s.TglPeminjaman);
                     break;
                 case "date_desc":
+                    menu = menu.OrderByDescending(s => s.TglPeminjaman);
+                    break;
+                default:
                     menu = menu.OrderBy(s => s.IdCustomerNavigation.NamaCustomer);
                     break;
             }
