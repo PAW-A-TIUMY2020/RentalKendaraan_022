@@ -12,11 +12,11 @@
 
 @using (Html.BeginForm("Index", "Kendaraans", FormMethod.Get))
 {
-    <p>
-     Ketersediaan: @Html.DropDownList("ktsd", "Pilih kendaraan")
-
-    <input type="submit" value="Filter"/>
-    </p>
+<p>
+    Ketersediaan: @Html.DropDownList("ktsd", "Pilih kendaraan")
+    Cari Data : @Html.TextBox("searchString")
+    <input type="submit" value="Filter" />
+</p>
 }
 
 <table class="table">
