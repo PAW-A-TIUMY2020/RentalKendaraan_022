@@ -9,6 +9,16 @@
 <p>
     <a asp-action="Create">Tambah Data Baru</a>
 </p>
+
+@using (Html.BeginForm("Index", "Peminjamen", FormMethod.Get))
+{
+    <p>
+        Tipe jaminan: @Html.DropDownList("ktsd", "Pilih jaminan")
+        Cari Data : @Html.TextBox("searchString")
+        <input type="submit" value="Filter" />
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -25,35 +35,36 @@
                 Jaminan
             </th>
             <th>
-                Kendaraan                
+                Kendaraan
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TglPeminjaman)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Biaya)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCustomerNavigation.NamaCustomer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdJaminanNavigation.NamaJaminan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdKendaraanNavigation.NamaKendaraan)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPeminjaman"><i class="fas fa-edit"></i>Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPeminjaman"><i class="fas list-group"></i> Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPeminjaman">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TglPeminjaman)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Biaya)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCustomerNavigation.NamaCustomer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdJaminanNavigation.NamaJaminan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdKendaraanNavigation.NamaKendaraan)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdPeminjaman"><i class="fas fa-edit"></i>Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdPeminjaman"><i class="fas list-group"></i> Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdPeminjaman">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
